@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">College_Recommend_Android</string>
+    <string name="title_activity_splash">SplashActivity</string>
+</resources>
