@@ -34,6 +34,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Spinner state_spinner;
+    private Spinner tuition;
+    private Spinner median_salary;
+    private Spinner public_work_hour;
     private ProgressDialog progressDialog;
 
     @Override

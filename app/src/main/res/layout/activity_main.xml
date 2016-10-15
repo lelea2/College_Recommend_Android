@@ -19,10 +19,47 @@
         android:layout_centerHorizontal="true" />
     <Spinner
         android:id="@+id/state_spinner"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:prompt="@string/state_selection"
         android:layout_below="@id/imageView"
+        android:layout_marginTop="10dp"
+        android:popupBackground="@drawable/border" />
+    <EditText
+        android:id="@+id/sat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGray"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/state_spinner" />
+    <EditText
+        android:id="@+id/act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGray"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/sat"
+        android:textColor="@color/colorDarkGray"/>
+    <Spinner
+        android:id="@+id/public_work_hour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/act"
+        android:layout_marginTop="10dp"
+        android:popupBackground="@drawable/border" />
+    <Spinner
+        android:id="@+id/tuition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/public_work_hour"
+        android:layout_marginTop="10dp"
+        android:popupBackground="@drawable/border" />
+    <Spinner
+        android:id="@+id/median_salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tuition"
         android:layout_marginTop="10dp"
         android:popupBackground="@drawable/border" />
     <Button
@@ -30,8 +67,11 @@
         android:text="@string/hunting_button_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:id="@+id/button"
-        android:background="@color/colorOrange" />
+        android:layout_below="@id/median_salary"
+        android:background="@color/colorOrange"
+        android:onClick="startHunting" />
 
 </RelativeLayout>
 
