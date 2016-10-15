@@ -212,6 +212,8 @@ public class RecommendActivity extends AppCompatActivity {
             title.setText(college.getName());
             TextView location = (TextView) itemView.findViewById(R.id.location);
             location.setText(college.getLocation());
+            TextView tuitition = (TextView) itemView.findViewById(R.id.tuition);
+            tuitition.setText("Tuition: $" + college.getTuition());
             TextView acceptance_rate = (TextView) itemView.findViewById(R.id.acceptance_rate);
             acceptance_rate.setText("Acceptance Rate:" + college.getAcceptance_rate() + "%");
             TextView ratio = (TextView) itemView.findViewById(R.id.ratio);

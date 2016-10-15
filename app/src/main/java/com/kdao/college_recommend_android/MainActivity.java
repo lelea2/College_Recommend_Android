@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void startHunting(View v) {
         String sat_score = sat.getText().toString();
-        String act_score = sat.getText().toString();
+        String act_score = act.getText().toString();
         String state = state_spinner.getSelectedItem().toString();
         String tuition = tuition_spinner.getSelectedItem().toString();
         String hour = public_work_hour_spinner.getSelectedItem().toString();
