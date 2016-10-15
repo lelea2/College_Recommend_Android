@@ -47,6 +47,7 @@ public class PreferenceData {
     public static String getTuitionRange(Context ctx) {
         return getSharedPreferences(ctx).getString(TUITION_RANGE, "");
     }
+
     public static String getVolunteerHourRange(Context ctx) {
         return getSharedPreferences(ctx).getString(VOLUNTEER_HOUR_RANGE, "");
     }
