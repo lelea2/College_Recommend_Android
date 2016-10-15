@@ -4,6 +4,10 @@
     <color name="colorGreen">#6FCE73</color>
     <color name="colorLightGreen">#E5FFE6</color>
     <color name="colorOrange">#F49F3B</color>
+    <color name="colorDarkOrange">#e65100</color>
     <color name="colorGray">#ededed</color>
     <color name="colorDarkGray">#424242</color>
+    <color name="colorPopup">#DFFFFFFF</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorYellow">#fff9c4</color>
 </resources>

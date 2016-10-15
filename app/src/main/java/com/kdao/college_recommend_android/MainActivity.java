@@ -1,5 +1,9 @@
 package com.kdao.college_recommend_android;
 
+import com.kdao.college_recommend_android.util.Config;
+import com.kdao.college_recommend_android.util.PreferenceData;
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,6 +20,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.os.AsyncTask;
 import android.app.ProgressDialog;
+import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -34,18 +39,71 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Spinner state_spinner;
-    private Spinner tuition;
-    private Spinner median_salary;
-    private Spinner public_work_hour;
+    private Spinner tuition_spinner;
+//    private Spinner median_salary;
+    private Spinner public_work_hour_spinner;
     private ProgressDialog progressDialog;
+    private EditText sat;
+    private EditText act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         state_spinner = (Spinner) findViewById(R.id.state_spinner);
+        tuition_spinner = (Spinner) findViewById(R.id.tuition);
+//        median_salary = (Spinner) findViewById(R.id.median_salary);
+        public_work_hour_spinner = (Spinner) findViewById(R.id.public_work_hour);
+        sat = (EditText) findViewById(R.id.sat);
+        act = (EditText) findViewById(R.id.act);
         //Get data
+        generateTuition();
+//        generateSalary();
+        generatePublicHour();
         getState();
+    }
+
+    private void generateTuition() {
+        List<String> options = new ArrayList<String>();
+        options.add(Config.TUITION1);
+        options.add(Config.TUITION2);
+        options.add(Config.TUITION3);
+        options.add(Config.TUITION4);
+        options.add(Config.TUITION5);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, options);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+//            state_spinner.setAdapter(dataAdapter);
+        tuition_spinner.setPrompt("Select tuition range");
+        tuition_spinner.setAdapter(new NothingSelectedSpinnerAdapter(
+                dataAdapter,
+                R.layout.tuition_spinner_row_nothing_selected,
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                this));
+    }
+
+//    private void generateSalary() {
+//
+//    }
+
+    private void generatePublicHour() {
+        List<String> options = new ArrayList<String>();
+        options.add(Config.PUBLIC_HOUR_1);
+        options.add(Config.PUBLIC_HOUR_3);
+        options.add(Config.PUBLIC_HOUR_2);
+        options.add(Config.PUBLIC_HOUR_4);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, options);
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+//            state_spinner.setAdapter(dataAdapter);
+        public_work_hour_spinner.setPrompt("Select public services hour");
+        public_work_hour_spinner.setAdapter(new NothingSelectedSpinnerAdapter(
+                dataAdapter,
+                R.layout.hour_spinner_row_nothing_selected,
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                this));
     }
 
     //Loading to get state
@@ -104,16 +162,16 @@ public class MainActivity extends AppCompatActivity {
     //private function to popular state view
     private void populateStates(JSONArray arrayObj) {
         if (arrayObj.size() > 0) {
-            List<String> states = new ArrayList<String>();
+            List<String> statesList = new ArrayList<String>();
             for (int i = 0; i < arrayObj.size(); i++) {
                 try {
                     JSONObject object = (JSONObject) arrayObj.get(i);
-                    states.add(object.get("name").toString());
+                    statesList.add(object.get("name").toString());
                 } catch (Exception e) {
                     System.out.println(e);
                 }
             }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, states);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statesList);
             // Drop down layout style - list view with radio button
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // attaching data adapter to spinner
@@ -125,5 +183,34 @@ public class MainActivity extends AppCompatActivity {
                             // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                             this));
         }
+    }
+
+    /**
+     * Public function to handle button click
+     * @param v
+     */
+    public void startHunting(View v) {
+        String sat_score = sat.getText().toString();
+        String act_score = sat.getText().toString();
+        String state = state_spinner.getSelectedItem().toString();
+        String tuition = tuition_spinner.getSelectedItem().toString();
+        String hour = public_work_hour_spinner.getSelectedItem().toString();
+        if (isEmptyString(sat_score) || isEmptyString(act_score) || isEmptyString(state) || isEmptyString(tuition) || isEmptyString(hour)) {
+            Toast.makeText(MainActivity.this, Config.INVALID_FORM, Toast.LENGTH_LONG).show();
+        } else {
+            PreferenceData.setPersonalPref(getApplicationContext(), sat_score, act_score, state, tuition, hour);
+            Intent newIntent = new Intent(getApplicationContext(), RecommendActivity.class);
+            startActivity(newIntent);
+        }
+    }
+
+
+    /**
+     * Checking for is empty string function
+     * @param txt
+     * @return
+     */
+    private static boolean isEmptyString(String txt){
+        return (txt != null && txt.trim().length() > 0) ? false : true;
     }
 }

@@ -8,4 +8,4 @@
     android:ellipsize="marquee"
     android:textSize="18dp"
     android:textColor="@color/colorWhite"
-    android:text="Select A State" />
+    android:text="Select Tuition Range" />

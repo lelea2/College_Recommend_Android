@@ -3,4 +3,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="state_selection">Please select a state</string>
     <string name="hunting_button_text">Start Hunting</string>
+    <string name="back_button_text">Back To Hunting</string>
+    <string name="recommend_title">Your future colleges</string>
 </resources>
